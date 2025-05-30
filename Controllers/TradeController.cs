@@ -22,12 +22,39 @@ namespace FinhubService.Controllers
     [Route("/")]
     [Route("~/[controller]")]
     [Route("[action]")]
-    public IActionResult Index()
+    public async Task<IActionResult>  Index()
     {
-      StockTrade stockTrade = new StockTrade();
+      if(string.IsNullOrEmpty(_stockTradeOptions.DefaultStockSymbol))
+        _stockTradeOptions.DefaultStockSymbol = "MSFT";
 
+      Dictionary<string, object>? responseDictionary =
+       await _finnhubService.GetStockPriceQuote(
+         _stockTradeOptions.DefaultStockSymbol);
 
-      return View();
+      Dictionary<string, object>? responseCompanyProfiel = 
+        await _finnhubService.GetCompanyProfile(
+          _stockTradeOptions.DefaultStockSymbol);
+
+      StockTrade stockTrade = new StockTrade()
+      {
+        StockName = _stockTradeOptions.DefaultStockSymbol   
+      };
+
+      if(responseCompanyProfiel != null && responseDictionary != null)
+      {
+        stockTrade = new StockTrade()
+        {
+          StockSymbol = Convert.ToString(
+            responseCompanyProfiel["ticker"]),
+          StockName = Convert.ToString(
+            responseCompanyProfiel["name"]),
+          StockPrice = Convert.ToDouble(
+            responseDictionary["c"].ToString())
+        };
+      }
+
+      ViewBag.FinnhubToken = _configuration["FinnhubToken"];
+      return View(stockTrade);
     }
   }
 }
