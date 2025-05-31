@@ -59,7 +59,7 @@ namespace Services
     }
 
     //Returns the existing list of sell orders retrieved
-                      //from database table called 'SellOrders'.
+    //from database table called 'SellOrders'.
     public async Task<List<SellOrderResponse>> GetSellOrders()
     {
       return _sellOrders
