@@ -66,6 +66,5 @@ namespace Services
         .OrderByDescending(temp => temp.DateAndTimeOfOrder)
         .Select(temp => temp.ToSellOrderResponse()).ToList();
     }
-    //It was hard to fix nested .git
   }
 }
