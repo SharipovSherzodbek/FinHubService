@@ -10,13 +10,16 @@ namespace FinhubService.Controllers
     private readonly IFinnhubService _finnhubService;
     private readonly IConfiguration _configuration;
     private readonly TradingOptions _stockTradeOptions;
+    private readonly IStockService _stockService;
 
     public TradeController(IOptions<TradingOptions> stockTradeOptions, 
-      IFinnhubService finnhubService, IConfiguration configuration)
+      IFinnhubService finnhubService, IConfiguration configuration,
+        IStockService stockService)
     {
       _configuration = configuration;
       _stockTradeOptions = stockTradeOptions.Value;
       _finnhubService = finnhubService;
+      _stockService = stockService;
     }
 
     [Route("/")]
