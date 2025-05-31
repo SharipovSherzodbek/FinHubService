@@ -8,7 +8,7 @@ namespace Services
 {
   public class StockService : IStockService
   {
-    private readonly List<BuyOrder> _buyOrders;
+    private readonly  List<BuyOrder> _buyOrders;
     private readonly List<SellOrder> _sellOrders;
     public StockService()
     {
