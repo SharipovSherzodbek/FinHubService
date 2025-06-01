@@ -9,7 +9,7 @@ builder.Services.AddSingleton<IStockService, StockService>();
 builder.Services.AddSingleton<IFinnhubService, FinnhubService>();
 builder.Services.AddHttpClient();
 builder.Services.Configure<TradingOptions>(
-      builder.Configuration.GetSection("TradingOptions"));
+        builder.Configuration.GetSection("TradingOptions"));
 
 var app = builder.Build();
 
